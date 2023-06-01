@@ -1,7 +1,9 @@
-import React, { useReducer, useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import AuthContext from "../../context/auth-context";
+import InPut from "../UI/Input/Input";
 
 const emailReducer = (state, action) => {
   if (action.type === "USER-EMAIL") {
@@ -40,6 +42,8 @@ const Login = (props) => {
     isValid: undefined,
   });
 
+  const ctx = useContext(AuthContext);
+
   // useEffect(() => {
   //   const identifier = setTimeout(() => {
   //     console.log("form checked up");
@@ -75,7 +79,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    ctx.onLogin(emailState.value, passwordState.value);
   };
 
   return (
@@ -87,7 +91,7 @@ const Login = (props) => {
           }`}
         >
           <label htmlFor="email">E-Mail</label>
-          <input
+          <InPut
             type="email"
             id="email"
             value={emailState.value}
@@ -101,7 +105,7 @@ const Login = (props) => {
           }`}
         >
           <label htmlFor="password">Password</label>
-          <input
+          <InPut
             type="password"
             id="password"
             value={passwordState.value}
